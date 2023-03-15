@@ -1,0 +1,21 @@
+name: Run Python script at 8:45pm JST
+on:
+  schedule:
+    - cron: '45 11 * * *' # Runs at 8:45pm JST (11:45am UTC) every day
+  push:
+    branches:
+      - main
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Install dependencies
+      run: pip3 install -r requirements.txt # Replace with the name of your requirements file, if applicable
+    - name: Run script
+      run: python script.py # Replace with the name of your Python script
+      env:
+        JUNBOT_TOKEN: ${{ secrets.JUNBOT_TOKEN }}
+        CHAT_ID: ${{ secrets.CHAT_ID }}
